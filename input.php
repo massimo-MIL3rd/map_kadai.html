@@ -3,6 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	body{
+    background-image: url("../img/space2.jpg");    
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: auto;
+}
+#currentPosi{
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: azure;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+
+/* #memo{
+    position: absolute;
+    height: 18px;
+    width: 78%;
+    margin: auto;
+    top: 25px;
+    right: 55px;
+    left: 0;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+} */
+/* button{
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    top: 22px;
+    right: 20px;
+    cursor: pointer;
+    background: azure;
+    border: 0;
+    border-radius: 10px;
+    outline: none;  
+    font-size:130%;
+} */
+#container{
+    position: absolute;
+    height: 800px;
+    width: 600px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 0 50px;
+}
+.jumbotron{
+    position: absolute;
+    width: 90%;
+    height: 200px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 320px;
+    font-size: 20px;
+    color: azure;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+
+#myMap{
+    position:absolute; 
+    margin:auto; 
+    bottom: 320px;
+    right: 0;
+    left: 0;
+    width:90%; 
+    height:480px;
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+#history{
+    position:absolute;
+    height: 35px;
+    width: 95%;
+    margin:auto;
+    right: 0;
+    left: 0;
+    bottom: 165px;
+    background-color: azure;
+    border-radius: 10px;
+}
+#comment{
+    position: absolute;
+    margin: auto;
+    left: 10px;
+    top: 5px;
+    font-size: 18px;  
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+    color:black
+}
+#mylist{
+    position:absolute;
+    height:28%;
+    width: 100%;
+    margin: auto;
+    right: 0;
+    left: 0;
+    bottom: 5px;
+    background-color: transparent; 
+    overflow: auto;
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+#mylistul{
+    margin-right: 30px;
+}
+li{
+    list-style-type: none;
+}
+a {
+    font-weight:bold;
+    text-decoration:none;
+}
+a:link {
+    color: azure;
+}
+a:visited {
+    color:#eff702;
+}
+a:hover {
+    color:#ff00ae;
+    text-decoration:underline;
+}
+a:active {
+    color:#00ffa6;
+}
+}
+</style>
+
 <title>Footsteps</title>
 <link href="./css/map.css" rel="stylesheet">
 </head>
@@ -13,11 +154,27 @@
 	<input type="text" id="memo">
 	<button id="input_btn">👣</button>
 </div>
+
 <div id="myMap"></div>
-<div id="history">
+
+<!-- Main[Start] -->
+<form method="post" action="insert.php">
+  <div class="jumbotron">
+   <fieldset>
+    <legend>営業履歴</legend>
+	 <label>緯度経度：<input id="currentPosi" type="show" value ="" name="position"></label><br>
+     <label>物件名称：<input type="text" name="buildingName"></label><br>
+     <label>担当者名：<input type="text" name="name"></label><br>
+     <label>コメント：<textArea name="comment" rows="4" cols="40"></textArea></label><br>
+     <input type="submit" value="送信">
+    </fieldset>
+  </div>
+</form>
+
+<!-- <div id="history">
 <p id="comment"></p>
 </div>
-<div id="mylist"><ul id="mylistul"></ul></div>
+<div id="mylist"><ul id="mylistul"></ul></div> -->
 </div>
 <script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=Ag6XDobcfjCazLDIYvqssIBNpu-8sfU9kClhtfMYYOJJwSoj3MNoTkKrMXfy8pME" async defer></script>
 <script src="./js/BmapQuery.js"></script>
@@ -42,7 +199,7 @@ function loadmap(){
                             lon = position.coords.longitude;  //経度
 							matSet(lat,lon);
                         }catch(error){            
-                            console.log("getPos:"+error);
+                            console.log("currentPosi:"+error);
                         }
                         listview();
                 },
@@ -133,5 +290,47 @@ document.getElementById('input_btn').onclick = function(){
 //START
 loadmap();
 </script>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データ登録</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Head[Start] -->
+<header>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+    <div class="navbar-header"><a class="navbar-brand" href="select.php">データ登録</a></div>
+    </div>
+  </nav>
+</header>
+<!-- Head[End] -->
+
+<!-- Main[Start] -->
+<form method="post" action="insert.php">
+  <div class="jumbotron">
+   <fieldset>
+    <legend>営業履歴</legend>
+     <label>物件名称：<input type="text" name="buildingName"></label><br>
+     <label>担当者名：<input type="text" name="name"></label><br>
+     <label>コメント：<textArea name="comment" rows="4" cols="40"></textArea></label><br>
+     <input type="submit" value="送信">
+    </fieldset>
+  </div>
+</form>
+<!-- Main[End] -->
+
+
 </body>
 </html>
